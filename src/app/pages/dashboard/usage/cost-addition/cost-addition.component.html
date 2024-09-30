@@ -1,0 +1,66 @@
+<div class="flex flex-col p-5">
+  <h1 class="font-semibold text-xl mb-8">Add cost usage</h1>
+  <form
+    [formGroup]="addCostForm"
+    (ngSubmit)="submit()"
+    class="flex flex-col gap-4"
+  >
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Date</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        formControlName="date"
+        readonly
+      />
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Amount</mat-label>
+      <input
+        id="amount"
+        matInput
+        type="text"
+        (change)="onInput($event)"
+        formControlName="amount"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Purpose</mat-label>
+      <mat-select formControlName="purpose">
+        @for (purpose of purposes; track purpose.id) {
+        <mat-option [value]="purpose.id">{{ purpose.name }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Type</mat-label>
+      <mat-select formControlName="type">
+        @for (type of costsType; track type) {
+        <mat-option [value]="type">{{ type }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    @if (addCostForm.value.type === "Debit") {
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Payer</mat-label>
+      <mat-select formControlName="payer">
+        @for (user of users; track user.email) {
+        <mat-option [value]="user.id">{{ user.email }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    }
+    <button mat-flat-button type="submit" class="w-[200px] mx-auto">
+      Submit
+    </button>
+  </form>
+</div>

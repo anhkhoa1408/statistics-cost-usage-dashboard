@@ -1,0 +1,14 @@
+.usage-container {
+  z-index: 2000;
+  background-color: transparent;
+
+  .mat-drawer {
+    border-radius: 0;
+    background-color: white;
+    width: 450px;
+  }
+
+  .mat-drawer-inner-container {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  }
+}

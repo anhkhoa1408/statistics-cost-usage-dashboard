@@ -1,0 +1,26 @@
+<div class="py-2 flex flex-col">
+  <button
+    [routerLink]="['/dashboard/overview']"
+    class="app-sidebar-nav"
+    routerLinkActive="active"
+  >
+    <div
+      class="app-nav-icon size-[40px] shrink-0 mr-4 flex items-center justify-center"
+    >
+      <fa-icon [size]="'xl'" [icon]="['fas', 'chart-simple']"></fa-icon>
+    </div>
+    <span>Overview</span>
+  </button>
+  <button
+    [routerLink]="['/dashboard/usage']"
+    class="app-sidebar-nav"
+    routerLinkActive="active"
+  >
+    <div
+      class="app-nav-icon size-[40px] shrink-0 mr-4 flex items-center justify-center"
+    >
+      <fa-icon [icon]="['fas', 'calendar']"></fa-icon>
+    </div>
+    <span>Usage by month</span>
+  </button>
+</div>

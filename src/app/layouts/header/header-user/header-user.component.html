@@ -1,0 +1,19 @@
+<div class="flex items-center">
+  <button
+    class="!flex !items-center !justify-center text-black"
+    [matMenuTriggerFor]="menu"
+  >
+    <div class="size-8 rounded-full">
+      <img
+        class="w-full h-full object-contain"
+        [src]="
+          'https://avatar.iran.liara.run/username?username=' + user?.displayName
+        "
+      />
+    </div>
+    <mat-icon color="#000">arrow_drop_down</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu" class="!bg-white">
+    <button mat-menu-item (click)="signOut()">Log out</button>
+  </mat-menu>
+</div>

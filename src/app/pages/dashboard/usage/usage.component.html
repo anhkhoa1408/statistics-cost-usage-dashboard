@@ -1,0 +1,32 @@
+<mat-sidenav-container class="usage-container [&_.mat-drawer-backdrop]:fixed">
+  <mat-sidenav #sidenav [fixedInViewport]="true" mode="over" position="end">
+    <app-cost-addition
+      (toggleSidenavEmitter)="toggleSidenav()"
+    ></app-cost-addition>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <app-page-title [title]="'Usage by month'">
+      <div class="flex items-center justify-end gap-2">
+        <button (click)="sidenav.toggle()" mat-stroked-button>
+          Add cost
+          <mat-icon>add</mat-icon>
+        </button>
+        <button mat-flat-button (click)="exportToExcel()">
+          Export
+          <mat-icon>download</mat-icon>
+        </button>
+      </div>
+    </app-page-title>
+
+    <revo-grid
+      #costGrid
+      [columns]="columns"
+      [source]="costs"
+      resize
+      theme="material"
+      exporting="true"
+      style="background-color: white"
+    ></revo-grid>
+  </mat-sidenav-content>
+</mat-sidenav-container>

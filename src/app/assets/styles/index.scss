@@ -1,0 +1,39 @@
+// material ui
+@use "@angular/material" as mat;
+@use "./widgets/angular-material/angular-materialm3-theme" as theme;
+
+// app core
+@use "./core/base";
+
+@include mat.core();
+
+:root {
+  @include mat.all-component-themes(theme.$light-theme);
+  @include mat.form-field-density(-2);
+  @include mat.button-density(-0.5);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+}
+
+.mdc-notched-outline__notch {
+  border-right: none;
+}
+
+.cdk-overlay-pane {
+  div.mat-mdc-select-panel {
+    background-color: white;
+  }
+
+  mat-datepicker-content {
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    background-color: white;
+  }
+}

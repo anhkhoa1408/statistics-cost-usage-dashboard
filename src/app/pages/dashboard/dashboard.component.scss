@@ -1,0 +1,71 @@
+$sidebar-collapse-width: 72px;
+$sidebar-active-width: 280px;
+
+$sidebar-border-color: #ebebeb;
+
+$main-background: #f8f9fe;
+
+.app-layout {
+  display: flex;
+  background-color: $main-background;
+
+  .app-sidebar {
+    width: $sidebar-collapse-width;
+    text-overflow: ellipsis;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0.5rem;
+    left: 0.35rem;
+    bottom: 0.5rem;
+    z-index: 1000;
+    transition: all 0.3s ease-in-out;
+    border-right: 1px solid $sidebar-border-color;
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px,
+      rgba(17, 17, 26, 0.1) 0px 0px 8px;
+
+    &:hover {
+      width: $sidebar-active-width;
+      border-right: 1px solid transparent;
+      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    }
+  }
+
+  .app-container {
+    margin-left: calc($sidebar-collapse-width + 0.35rem);
+    height: 100%;
+    width: calc(100% - $sidebar-collapse-width - 0.35rem);
+    transition: all 0.5s ease;
+    position: relative;
+    z-index: 999;
+    background-color: $main-background;
+  }
+
+  .app-header {
+    left: calc($sidebar-collapse-width + 0.35rem);
+    right: 0;
+    top: 0;
+    z-index: 999;
+    position: fixed;
+    background-color: $main-background;
+    border-bottom: 1px solid $sidebar-border-color;
+  }
+
+  .app-footer {
+    left: calc($sidebar-collapse-width + 0.35rem);
+    right: 0;
+    bottom: 0;
+    position: fixed;
+    background-color: $main-background;
+    border-top: 1px solid $sidebar-border-color;
+  }
+
+  .app-content {
+    padding: 6rem 2rem;
+    background-color: $main-background;
+    min-height: 100vh;
+  }
+}

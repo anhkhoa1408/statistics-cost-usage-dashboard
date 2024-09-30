@@ -1,0 +1,22 @@
+.app-sidebar-nav {
+  @apply px-4 my-2 flex items-center justify-start text-ellipsis text-nowrap ease-linear duration-200;
+
+  .app-nav-icon {
+    @apply rounded-md ease-linear duration-200;
+  }
+
+  &:hover,
+  &.active {
+    .app-nav-icon {
+      background-color: theme("colors.primary.DEFAULT");
+
+      & > * {
+        color: #ffffff !important;
+      }
+    }
+
+    span {
+      font-weight: 600;
+    }
+  }
+}
