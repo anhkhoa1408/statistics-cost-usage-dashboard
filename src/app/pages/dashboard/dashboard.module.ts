@@ -15,8 +15,16 @@ import { SidebarMenuComponent } from './../../layouts/sidebar/sidebar-menu/sideb
 import { SidebarComponent } from './../../layouts/sidebar/sidebar.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import {
+  MAT_DATE_LOCALE,
+  provideNativeDateAdapter,
+} from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatIconModule } from '@angular/material/icon';
+import { MatHint, MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatOption, MatSelect } from '@angular/material/select';
 import {
   MatSidenav,
   MatSidenavContainer,
@@ -32,18 +40,10 @@ import {
   faChevronDown,
 } from '@fortawesome/free-solid-svg-icons';
 import { RevoGrid } from '@revolist/angular-datagrid';
-import { UsageComponent } from './usage/usage.component';
-import { CostAdditionComponent } from './usage/cost-addition/cost-addition.component';
-import { MatHint, MatInputModule } from '@angular/material/input';
-import { MatOption, MatSelect } from '@angular/material/select';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import {
-  MAT_DATE_LOCALE,
-  provideNativeDateAdapter,
-} from '@angular/material/core';
 import { BaseChartDirective } from 'ng2-charts';
-import { MatCardModule } from '@angular/material/card';
-
+import { CostAdditionComponent } from './usage/cost-addition/cost-addition.component';
+import { UsageComponent } from './usage/usage.component';
+import { TrashedButtonComponent } from './usage/trashed-button/trashed-button.component';
 @NgModule({
   declarations: [
     // page components
@@ -59,6 +59,8 @@ import { MatCardModule } from '@angular/material/card';
     SidebarComponent,
     SidebarHeaderComponent,
     SidebarMenuComponent,
+
+    TrashedButtonComponent,
   ],
   imports: [
     // app modules
@@ -84,8 +86,8 @@ import { MatCardModule } from '@angular/material/card';
 
     // standalone components
     PageTitleComponent,
-    CurrencyPipe,
 
+    // directive
     BaseChartDirective,
   ],
   providers: [

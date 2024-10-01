@@ -4,6 +4,7 @@ import {
   CellTemplateProp,
   HyperFunc,
   RevoGrid,
+  Template,
   VNode,
 } from '@revolist/angular-datagrid';
 import { saveAs } from 'file-saver';
@@ -11,6 +12,7 @@ import * as XLSX from 'xlsx';
 import { CostService } from './../../../services/cost.service';
 import { Cost } from './../../../types/cost.type';
 import moment from 'moment';
+import { TrashedButtonComponent } from './trashed-button/trashed-button.component';
 
 const currencyFormatter = new Intl.NumberFormat('vi-VN', {
   style: 'currency',
@@ -32,19 +34,19 @@ export class UsageComponent {
 
   columns = [
     {
-      prop: 'id',
+      prop: 'index',
       name: '#',
-      size: 50,
+      size: 100,
     },
     {
       prop: 'date',
       name: 'Date',
-      size: 250,
+      size: 280,
     },
     {
       prop: 'amount',
       name: 'Amount',
-      size: 250,
+      size: 230,
       cellTemplate: (h: HyperFunc<VNode>, props: CellTemplateProp) => {
         return currencyFormatter.format((props.model as any)?.amount) || '0 đ';
       },
@@ -52,7 +54,7 @@ export class UsageComponent {
     {
       prop: 'purpose',
       name: 'Purpose',
-      size: 250,
+      size: 200,
       cellTemplate: (h: HyperFunc<VNode>, props: CellTemplateProp) => {
         return (props.model as any)?.purpose?.name || 'Unknown';
       },
@@ -60,15 +62,20 @@ export class UsageComponent {
     {
       prop: 'type',
       name: 'Type',
-      size: 250,
+      size: 170,
     },
     {
       prop: 'payer',
       name: 'Payer',
-      size: 250,
+      size: 200,
       cellTemplate: (h: HyperFunc<VNode>, props: CellTemplateProp) => {
         return (props.model as any)?.payer?.name || 'Budget paid';
       },
+    },
+    {
+      prop: '',
+      name: 'Action',
+      cellTemplate: Template(TrashedButtonComponent),
     },
   ];
 

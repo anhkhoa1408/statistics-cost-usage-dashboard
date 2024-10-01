@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import {
   addDoc,
-  and,
   collection,
   collectionData,
   CollectionReference,
-  DocumentReference,
+  deleteDoc,
+  doc,
   Firestore,
   getDoc,
   orderBy,
@@ -30,7 +30,9 @@ export class CostService {
   }
 
   queryCosts = (queryClause: Query): Observable<Cost[]> => {
-    return collectionData(queryClause).pipe(
+    return collectionData(queryClause, {
+      idField: 'id',
+    }).pipe(
       mergeMap((costs: Cost[]) => {
         const costWithPromise = costs.map(async (cost, index) => {
           let payer, payerDoc, purpose, purposeDoc;
@@ -50,7 +52,7 @@ export class CostService {
           }
           return {
             ...cost,
-            id: index + 1,
+            index: index + 1,
             payer,
             purpose,
             date: moment(cost.date.toDate()).format('DD/MM/YYYY HH:mm:ss'),
@@ -113,5 +115,10 @@ export class CostService {
       type,
       payer,
     });
+  };
+
+  deleteCost = async ({ id }: { id: string }) => {
+    if (!id) return;
+    await deleteDoc(doc(this.fireStore, 'costs', id));
   };
 }

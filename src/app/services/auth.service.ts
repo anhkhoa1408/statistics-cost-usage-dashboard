@@ -18,6 +18,7 @@ import {
   tap,
 } from 'rxjs';
 import { UserService } from './user.service';
+import { toast } from 'ngx-sonner';
 
 @Injectable({
   providedIn: 'root',
@@ -33,10 +34,18 @@ export class AuthService implements OnDestroy {
   ) {
     if (auth) {
       this.user = authState(this.auth);
-      this.userDisposable = authState(this.auth).pipe(
-        traceUntilFirst('auth'),
-        map((u) => !!u)
-      );
+      this.userDisposable = authState(this.auth)
+        .pipe(
+          traceUntilFirst('auth'),
+          map((u) => !!u)
+        )
+        .subscribe((isLoggedin: boolean) => {
+          isLoggedin &&
+            toast.success(`Welcome back!`, {
+              position: 'top-center',
+              duration: 2000,
+            });
+        });
     }
   }
 
@@ -65,7 +74,15 @@ export class AuthService implements OnDestroy {
   }
 
   async login() {
-    return await signInWithPopup(this.auth, new GoogleAuthProvider());
+    try {
+      return await signInWithPopup(this.auth, new GoogleAuthProvider());
+    } catch (error) {
+      toast.error('Unauthenticated user!', {
+        duration: 2000,
+        position: 'top-center',
+      });
+      return null;
+    }
   }
 
   async logout() {
