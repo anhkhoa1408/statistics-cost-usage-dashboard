@@ -18,11 +18,13 @@ import { CurrencyPipe } from '@angular/common';
 export class CostAdditionComponent {
   @Output() toggleSidenavEmitter: EventEmitter<undefined> = new EventEmitter();
 
+  maxDate = new Date();
+
   users: User[] = [];
   purposes: Purpose[] = [];
 
   addCostForm = this.formBuilder.group({
-    date: [new Date()],
+    date: [new Date(), Validators.required],
     amount: ['', Validators.required],
     type: ['', Validators.required],
     purpose: ['', Validators.required],
@@ -84,7 +86,13 @@ export class CostAdditionComponent {
   }
 
   submit() {
-    if (this.addCostForm.errors) return;
+    if (!this.addCostForm.valid) {
+      toast.error('Please fill in all the fields below!', {
+        position: 'top-center',
+        duration: 1000,
+      });
+      return;
+    }
 
     const {
       amount = 1000,

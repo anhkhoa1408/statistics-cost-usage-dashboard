@@ -9,6 +9,7 @@
       <mat-label>Date</mat-label>
       <input
         matInput
+        [max]="maxDate"
         [matDatepicker]="picker"
         formControlName="date"
         readonly
