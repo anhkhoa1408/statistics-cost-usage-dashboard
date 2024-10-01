@@ -41,6 +41,8 @@ import {
   MAT_DATE_LOCALE,
   provideNativeDateAdapter,
 } from '@angular/material/core';
+import { BaseChartDirective } from 'ng2-charts';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -67,6 +69,7 @@ import {
     // external modules
     FontAwesomeModule,
     MatButtonModule,
+    MatCardModule,
     MatDatepickerModule,
     MatHint,
     MatMenuModule,
@@ -82,6 +85,8 @@ import {
     // standalone components
     PageTitleComponent,
     CurrencyPipe,
+
+    BaseChartDirective,
   ],
   providers: [
     provideNativeDateAdapter(),

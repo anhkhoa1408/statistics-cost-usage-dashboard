@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
   addDoc,
+  and,
   collection,
   collectionData,
   CollectionReference,
@@ -53,6 +54,7 @@ export class CostService {
             payer,
             purpose,
             date: moment(cost.date.toDate()).format('DD/MM/YYYY HH:mm:ss'),
+            shortDate: moment(cost.date.toDate()).format('DD/MM'),
           };
         });
         return from(Promise.all(costWithPromise));
@@ -65,22 +67,43 @@ export class CostService {
     return this.queryCosts(queryClause);
   };
 
-  getCostsInCurMonth = () => {
+  getCostsInMonth = (month: number) => {
+    const now = moment();
     const queryClause = query(
       this.costCollection,
       where(
         'date',
         '>=',
-        moment()
-          .set('month', moment().get('month') - 1)
-          .toDate()
+        now.clone().set('month', month).startOf('month').toDate()
+      ),
+      where(
+        'date',
+        '<=',
+        now.clone().set('month', month).endOf('month').toDate()
       ),
       orderBy('date', 'desc')
     );
     return this.queryCosts(queryClause);
   };
 
-  createCost = async ({ amount, date, purpose, type, payer }: Cost) => {
+  getCostInCurWeek = () => {
+    const now = moment();
+    const queryClause = query(
+      this.costCollection,
+      where('date', '>=', now.clone().startOf('week').toDate()),
+      where('date', '<=', now.clone().endOf('week').toDate()),
+      orderBy('date', 'desc')
+    );
+    return this.queryCosts(queryClause);
+  };
+
+  createCost = async ({
+    amount,
+    date,
+    purpose,
+    type,
+    payer,
+  }: Omit<Cost, 'shortDate'>) => {
     if (!amount || !date || !purpose || !type) return;
 
     await addDoc(this.costCollection, <Cost>{

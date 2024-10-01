@@ -10,6 +10,7 @@ import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import { CostService } from './../../../services/cost.service';
 import { Cost } from './../../../types/cost.type';
+import moment from 'moment';
 
 const currencyFormatter = new Intl.NumberFormat('vi-VN', {
   style: 'currency',
@@ -72,9 +73,11 @@ export class UsageComponent {
   ];
 
   constructor(private costService: CostService) {
-    this.costService.getCostsInCurMonth().subscribe((costs) => {
-      this.costs = costs;
-    });
+    this.costService
+      .getCostsInMonth(moment().get('month'))
+      .subscribe((costs) => {
+        this.costs = costs;
+      });
   }
 
   toggleSidenav = () => {

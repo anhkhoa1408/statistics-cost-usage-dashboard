@@ -1,1 +1,59 @@
-<app-page-title [title]="'Overview'"></app-page-title>
+<app-page-title [title]="'Overview'"> </app-page-title>
+
+<div class="grid grid-cols-12 gap-10">
+  <div class="col-span-4">
+    <mat-card class="h-[380px]">
+      <mat-card-header class="font-semibold text-xl mb-4"
+        >Overall cost usage</mat-card-header
+      >
+      <mat-card-content class="h-full flex items-center justify-center">
+        <canvas
+          baseChart
+          [datasets]="doughnutChartDatasets"
+          [options]="doughnutChartOptions"
+          [legend]="true"
+          [type]="'doughnut'"
+          style="width: 100%; height: 100%"
+        >
+        </canvas>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="col-span-8">
+    <mat-card class="h-[380px]">
+      <mat-card-header class="font-semibold text-xl mb-4"
+        >Last 2 month costs usage</mat-card-header
+      >
+      <mat-card-content class="h-full flex items-center justify-center">
+        <canvas
+          baseChart
+          [data]="barChartData"
+          [options]="barChartOptions"
+          [type]="'bar'"
+          style="width: 100%; height: 100%"
+        >
+        </canvas>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="col-span-12">
+    <mat-card class="h-[500px]">
+      <mat-card-header class="font-semibold text-xl mb-4"
+        >Usage this week</mat-card-header
+      >
+      <mat-card-content class="h-full flex items-center justify-center">
+        <canvas
+          baseChart
+          [type]="'line'"
+          [data]="lineChartData"
+          [options]="lineChartOptions"
+          [legend]="lineChartLegend"
+          style="width: 100%; height: 100%"
+        >
+          >
+        </canvas>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
