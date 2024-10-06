@@ -20,14 +20,11 @@ export const environment = {
 };
 `;
 
-fs.writeFile(
-  "./src/environments/environment.ts",
-  environmentFileContent,
-  (err) => {
-    if (err) {
-      console.error("Error writing environment.ts", err);
-    } else {
-      console.log(`environment.ts generated successfully`);
-    }
-  }
-);
+const filePath = "./src/environments/environment.ts";
+const fileDir = "./src/environments";
+
+if (!fs.existsSync(filePath)) {
+  fs.mkdirSync(fileDir);
+}
+
+fs.writeFileSync("./src/environments/environment.ts", environmentFileContent);
