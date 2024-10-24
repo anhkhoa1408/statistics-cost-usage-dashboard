@@ -8,10 +8,10 @@ import {
   VNode,
 } from '@revolist/angular-datagrid';
 import { saveAs } from 'file-saver';
+import moment from 'moment';
 import * as XLSX from 'xlsx';
 import { CostService } from './../../../services/cost.service';
 import { Cost } from './../../../types/cost.type';
-import moment from 'moment';
 import { TrashedButtonComponent } from './trashed-button/trashed-button.component';
 
 const currencyFormatter = new Intl.NumberFormat('vi-VN', {
@@ -20,6 +20,9 @@ const currencyFormatter = new Intl.NumberFormat('vi-VN', {
   minimumFractionDigits: 0,
   maximumFractionDigits: 0,
 });
+
+const now = moment();
+const currentYear = now.get('year');
 
 @Component({
   selector: 'app-usage',
@@ -31,6 +34,21 @@ export class UsageComponent {
   @ViewChild('costGrid') costGridRef!: RevoGrid;
 
   costs: Cost[] = [];
+  filterMonthOpts = [
+    {
+      label: `${now.clone().get('month') + 1}/${currentYear}`,
+      value: now.clone().get('month'),
+    },
+    {
+      label: `${now.clone().get('month')}/${currentYear}`,
+      value: now.clone().get('month') - 1,
+    },
+    {
+      label: `${now.clone().get('month') - 1}/${currentYear}`,
+      value: now.clone().get('month') - 2,
+    },
+  ];
+  selectedMonth = this.filterMonthOpts[0].value;
 
   columns = [
     {
@@ -80,12 +98,15 @@ export class UsageComponent {
   ];
 
   constructor(private costService: CostService) {
-    this.costService
-      .getCostsInMonth(moment().get('month'))
-      .subscribe((costs) => {
-        this.costs = costs;
-      });
+    this.handleGetCostByMonth(this.selectedMonth);
   }
+
+  handleGetCostByMonth = (month: number) => {
+    this.selectedMonth = month;
+    this.costService.getCostsInMonth(month).subscribe((costs) => {
+      this.costs = costs;
+    });
+  };
 
   toggleSidenav = () => {
     this.sidenavRef.toggle();
@@ -187,6 +208,6 @@ export class UsageComponent {
       type: 'array',
     });
     const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
-    saveAs(blob, 'Cost per month.xlsx');
+    saveAs(blob, `Cost usage in ${this.selectedMonth + 1}/${currentYear}.xlsx`);
   }
 }

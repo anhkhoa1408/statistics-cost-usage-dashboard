@@ -7,7 +7,18 @@
 
   <mat-sidenav-content>
     <app-page-title [title]="'Usage by month'">
-      <div class="flex items-center justify-end gap-2">
+      <div class="flex items-center justify-end gap-4 pt-2">
+        <mat-form-field appearance="outline" style="margin-bottom: -1.25rem">
+          <mat-label>Month</mat-label>
+          <mat-select
+            [value]="selectedMonth"
+            (selectionChange)="handleGetCostByMonth($event.value)"
+          >
+            @for (opt of filterMonthOpts; track opt.label) {
+            <mat-option [value]="opt.value">{{ opt.label }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
         <button (click)="sidenav.toggle()" mat-stroked-button>
           Add cost
           <mat-icon>add</mat-icon>
