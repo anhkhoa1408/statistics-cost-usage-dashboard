@@ -1,27 +1,23 @@
-<div class="flex h-full flex-col justify-center w-9/12 mx-auto">
-  <h1 class="text-4xl self-center font-medium mb-10 text-black">Sign In</h1>
-  <div class="w-[350px] mx-auto flex flex-col gap-5">
-    <mat-form-field appearance="outline">
-      <mat-label>Email</mat-label>
-      <input matInput placeholder="Eg: Example@gmail.com" disabled />
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Password</mat-label>
-      <input matInput placeholder="******" disabled />
-    </mat-form-field>
-  </div>
-  <div class="flex flex-col justify-center mx-auto gap-3 mt-5 w-[250px]">
-    <button mat-flat-button disabled>
-      <span class="inline-block text-base">Sign in</span>
-    </button>
-    <div class="text-slate-500 text-sm self-center">Or</div>
-    <button
-      (click)="login()"
-      mat-button
-      class="flex items-center justify-center"
-    >
-      <fa-icon [icon]="['fab', 'google']"></fa-icon>
-      <span class="inline-block text-base ml-2">Sign in with Google</span>
-    </button>
-  </div>
+<div
+  class="flex h-full flex-col bg-white justify-center p-8 w-[450px] rounded-2xl gap-4"
+>
+  <h1 class="text-3xl self-center font-medium mb-5 text-black">
+    Welcome back!
+  </h1>
+  <mat-form-field appearance="outline">
+    <mat-label>Email</mat-label>
+    <input matInput placeholder="Eg: Example@gmail.com" disabled />
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Password</mat-label>
+    <input matInput placeholder="******" disabled />
+  </mat-form-field>
+  <button mat-flat-button disabled>
+    <span class="inline-block text-base">Sign in</span>
+  </button>
+  <div class="text-slate-500 text-sm self-center">Or</div>
+  <button (click)="login()" mat-button class="flex items-center justify-center">
+    <fa-icon [icon]="['fab', 'google']"></fa-icon>
+    <span class="inline-block text-base ml-2">Sign in with Google</span>
+  </button>
 </div>
